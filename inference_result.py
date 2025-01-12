@@ -1,23 +1,20 @@
 from enum import Enum
 
-class InferenceResult(Enum):
+from pydantic import BaseModel
+
+class ImageClassification(Enum):
     VALID = "VALID"
     INVALID = "INVALID"
     UNKNOWN = "UNKNOWN"
 
-    @staticmethod
-    def from_value(value: str):
-        print(value)
-        if "invalid" in value.lower():
-            return InferenceResult.INVALID
-        if "valid" in value.lower():
-            return InferenceResult.VALID
-        return InferenceResult.UNKNOWN
-
     def get_target_folder(self, config) -> str:
-        if self == InferenceResult.VALID:
+        if self == ImageClassification.VALID:
             return config.valid_output_folder
-        elif self == InferenceResult.INVALID:
+        elif self == ImageClassification.INVALID:
             return config.invalid_output_folder
         else:
             return config.unknowns_output_folder
+
+class InferenceResult(BaseModel):
+    classification: ImageClassification
+    explanation: str

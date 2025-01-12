@@ -2,13 +2,15 @@ from abc import ABC, abstractmethod
 import random
 
 import ollama
+from ollama import ChatResponse
+import json
 
-from inference_result import InferenceResult
+from inference_result import ImageClassification, InferenceResult
 
 
 class Inference(ABC):
     @abstractmethod
-    def infer(self, image_path: str) -> InferenceResult:
+    def infer(self, image_path: str) -> ImageClassification:
         pass
 
 class OllamaInference(Inference):
@@ -16,8 +18,8 @@ class OllamaInference(Inference):
         self.model = model
         self.prompt = prompt
 
-    def infer(self, image_path: str) -> InferenceResult:
-        res = ollama.chat(
+    def infer(self, image_path: str) -> ImageClassification:
+        res: ChatResponse = ollama.chat(
             model=self.model,
             messages=[
                 {
@@ -25,11 +27,12 @@ class OllamaInference(Inference):
                     'content': self.prompt,
                     'images': [image_path]
                 }
-            ]
+            ],
+            format=InferenceResult.model_json_schema(),
         )
-        return InferenceResult.from_value(res['message']['content'])
-
+        print(res.message.content)
+        return InferenceResult(**json.loads(res.message.content)).classification
 
 class MockedInference(Inference):
-    def infer(self, image_path: str) -> InferenceResult:
-        return random.choice([InferenceResult.VALID, InferenceResult.INVALID, InferenceResult.UNKNOWN])
+    def infer(self, image_path: str) -> ImageClassification:
+        return random.choice([ImageClassification.VALID, ImageClassification.INVALID, ImageClassification.UNKNOWN])

@@ -4,9 +4,7 @@ valid_output_folder: "valid"
 invalid_output_folder: "invalid"
 model: "llava:7b"
 prompt: |
-  You need to classify the image. Image is INVALID if on the following criteria is meet:
-    - Image is a screenshot
-    - Image is an extract from a website or web application
-    - Image contains only text
-    - Image has low quality
-  Do not repeat rules but provide criteria that is meet and add the classification word. Remove any extra spaces.
+  Analyze the provided image and evaluate its content based on the following criteria:
+  1. If the image is of low quality (e.g., blurry, pixelated), contains a screenshot,
+  is an extract from a website or web application, or contains only text, classify it as INVALID.
+  2. If none of the above issues apply and the image meets acceptable standards, classify it as VALID.

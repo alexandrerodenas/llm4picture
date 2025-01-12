@@ -2,7 +2,7 @@ import os
 import shutil
 from configuration import Config
 from inference import OllamaInference, MockedInference
-from inference_result import InferenceResult
+from inference_result import ImageClassification
 
 
 def move_image_to_folder(image_path: str, target_folder: str):
@@ -16,8 +16,8 @@ def analyse(config: Config):
         image_path = os.path.join(config.image_folder, image_name)
 
         if image_path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
-            respond: InferenceResult = inference.infer(image_path)
-            print(f"{image_name}: {respond.value}")
+            respond: ImageClassification = inference.infer(image_path)
+            print(f"{image_name}: {respond}")
 
             move_image_to_folder(image_path, respond.get_target_folder(config))
 
