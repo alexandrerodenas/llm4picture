@@ -11,6 +11,7 @@ class Config:
         self.valid_output_folder = config['valid_output_folder']
         self.invalid_output_folder = config['invalid_output_folder']
         self.prompt = config['prompt']
+        self.model = config['model']
         self._create_directories()
 
     def _create_directories(self):
