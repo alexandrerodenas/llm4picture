@@ -7,10 +7,11 @@ class InferenceResult(Enum):
 
     @staticmethod
     def from_value(value: str):
-        if "INVALID" in value:
+        if "invalid" in value.lower():
             return InferenceResult.INVALID
-        if "VALID" in value:
+        if "valid" in value.lower():
             return InferenceResult.VALID
+        print("Unknown value: ", value)
         return InferenceResult.UNKNOWN
 
     def get_target_folder(self, config) -> str:

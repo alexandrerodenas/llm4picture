@@ -5,7 +5,7 @@ from inference import OllamaInference, MockedInference
 from inference_result import InferenceResult
 
 
-def move_image_to_folder(image_path, target_folder):
+def move_image_to_folder(image_path: str, target_folder: str):
     target_path = os.path.join(target_folder, os.path.basename(image_path))
     shutil.move(image_path, target_path)
 

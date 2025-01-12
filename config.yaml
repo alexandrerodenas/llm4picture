@@ -7,7 +7,7 @@ prompt: |
   You will only respond with 'VALID', 'INVALID', 'UNKNOWN' in capital letter based on following rules:
   - Image is blurred => INVALID
   - Image looks like a screenshot => INVALID
-  - Image contains more than 10 words => INVALID
-  - Image has no object nor landscape => UNKNOWN
+  - Image contains a lot of text => INVALID
+  - Image has no element visible => UNKNOWN
 
   I don't need any other information nor explanation. Remove extra spaces.
