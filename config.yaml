@@ -1,0 +1,12 @@
+image_folder: "images"
+unknowns_output_folder: "unknown"
+valid_output_folder: "valid"
+invalid_output_folder: "invalid"
+prompt: |
+  You will only respond with 'VALID', 'INVALID', 'UNKNOWN' in capital letter based on following rules:
+  - Image is blurred => INVALID
+  - Image looks like a screenshot => INVALID
+  - Image contains more than 10 words => INVALID
+  - Image has no object nor landscape => UNKNOWN
+
+  I don't need any other information nor explanation. Remove extra spaces.
