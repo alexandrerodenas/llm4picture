@@ -4,10 +4,9 @@ valid_output_folder: "valid"
 invalid_output_folder: "invalid"
 model: "llava:7b"
 prompt: |
-  You will only respond with 'VALID', 'INVALID', 'UNKNOWN' in capital letter based on following rules:
-  - Image is blurred => INVALID
-  - Image looks like a screenshot => INVALID
-  - Image contains a lot of text => INVALID
-  - Image has no element visible => UNKNOWN
-
-  I don't need any other information nor explanation. Remove extra spaces.
+  You need to classify the image. Image is INVALID if on the following criteria is meet:
+    - Image is a screenshot
+    - Image is an extract from a website or web application
+    - Image contains only text
+    - Image has low quality
+  Do not repeat rules but provide criteria that is meet and add the classification word. Remove any extra spaces.
