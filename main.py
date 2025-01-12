@@ -1,8 +1,8 @@
 import os
 import shutil
-import ollama
 from configuration import Config
 from inference import OllamaInference, MockedInference
+from inference_result import InferenceResult
 
 
 def move_image_to_folder(image_path, target_folder):
@@ -16,17 +16,10 @@ def analyse(config: Config):
         image_path = os.path.join(config.image_folder, image_name)
 
         if image_path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
-            respond = inference.infer(image_path)
-            print(f"{image_name}: {respond}")
+            respond: InferenceResult = inference.infer(image_path)
+            print(f"{image_name}: {respond.value}")
 
-            if respond == "VALID":
-                target_folder = config.valid_output_folder
-            elif respond == "INVALID":
-                target_folder = config.invalid_output_folder
-            else:
-                target_folder = config.unknowns_output_folder
-
-            move_image_to_folder(image_path, target_folder)
+            move_image_to_folder(image_path, respond.get_target_folder(config))
 
 
 

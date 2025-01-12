@@ -8,7 +8,7 @@ from inference_result import InferenceResult
 
 class Inference(ABC):
     @abstractmethod
-    def infer(self, image_path: str) -> str:
+    def infer(self, image_path: str) -> InferenceResult:
         pass
 
 class OllamaInference(Inference):
@@ -16,7 +16,7 @@ class OllamaInference(Inference):
         self.model = model
         self.prompt = prompt
 
-    def infer(self, image_path: str) -> str:
+    def infer(self, image_path: str) -> InferenceResult:
         res = ollama.chat(
             model=self.model,
             messages=[
@@ -31,5 +31,5 @@ class OllamaInference(Inference):
 
 
 class MockedInference(Inference):
-    def infer(self, image_path: str) -> str:
-        return random.choice(["VALID", "INVALID", "UNKNOWN"])
+    def infer(self, image_path: str) -> InferenceResult:
+        return random.choice([InferenceResult.VALID, InferenceResult.INVALID, InferenceResult.UNKNOWN])
