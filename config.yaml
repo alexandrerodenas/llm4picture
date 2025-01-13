@@ -4,7 +4,10 @@ valid_output_folder: "valid"
 invalid_output_folder: "invalid"
 model: "llava:7b"
 prompt: |
-  Analyze the provided image and evaluate its content based on the following criteria:
-  1. If the image is of low quality (e.g., blurry, pixelated), contains a screenshot,
-  is an extract from a website or web application, or contains only text, classify it as INVALID.
-  2. If none of the above issues apply and the image meets acceptable standards, classify it as VALID.
+    Analyze the provided image and evaluate its content based on the following criteria:
+    1. If the image has visible artifacts, or is of low resolution, classify it as INVALID.
+    2. If the image contains elements indicative of a screenshot, such as visible UI components, browser toolbars, or status bars, classify it as INVALID.
+    3. If the image is extracted from a website or web application, and includes elements like buttons, navigation bars, or website branding, classify it as INVALID.
+    4. If the image contains only text (e.g., plain text on a background, document scans, or text-heavy layouts) and lacks meaningful visual content, classify it as INVALID.
+    5. If the image contains minimal or no discernible content, such as blank or overly dark/bright images, classify it as INVALID.
+    If none of the above criteria apply and the image meets acceptable standards (e.g., clear, visually meaningful, and not indicative of the above issues), classify it as VALID.
